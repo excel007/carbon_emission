@@ -1,9 +1,14 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+
+# กำหนดฟอนต์ภาษาไทย
+font_path = 'THSarabunNew.ttf'
+font_prop = FontProperties(fname=font_path)
 
 # โหลดข้อมูลจากไฟล์ CSV
-data = pd.read_csv('kmean_ICE.csv')
+data = pd.read_csv('/mnt/data/kmean_ICE.csv')
 
 # กำหนดชื่อกลุ่มสำหรับแต่ละค่า pca_kmean_cluster
 cluster_names = {
@@ -38,6 +43,9 @@ car1 = select_car("คันที่ 1")
 st.header("รถยนต์คันที่ 2")
 car2 = select_car("คันที่ 2")
 
+# กำหนดคอลัมน์ที่ต้องการแสดง
+columns_to_display = ['car_brand', 'car_series', 'model_year', 'car_price', 'emissions_co2', 'car_capacity']
+
 # สร้างปุ่มสำหรับประมวลผล
 if st.button('เปรียบเทียบ'):
     if len(car1) > 0 and len(car2) > 0:
@@ -46,14 +54,14 @@ if st.button('เปรียบเทียบ'):
         cluster_name1 = cluster_names.get(cluster1, 'ไม่ทราบกลุ่ม')
         st.subheader(f'ผลลัพธ์สำหรับรถยนต์คันที่ 1: {car1["car_brand"].values[0]} {car1["car_series"].values[0]} ปี {car1["model_year"].values[0]}')
         st.write(f'กลุ่ม: {cluster_name1}')
-        st.write(car1.iloc[0])
+        st.write(car1[columns_to_display].iloc[0])
 
         # ข้อมูลรถยนต์คันที่ 2
         cluster2 = car2['pca_kmean_cluster'].values[0]
         cluster_name2 = cluster_names.get(cluster2, 'ไม่ทราบกลุ่ม')
         st.subheader(f'ผลลัพธ์สำหรับรถยนต์คันที่ 2: {car2["car_brand"].values[0]} {car2["car_series"].values[0]} ปี {car2["model_year"].values[0]}')
         st.write(f'กลุ่ม: {cluster_name2}')
-        st.write(car2.iloc[0])
+        st.write(car2[columns_to_display].iloc[0])
 
         # ฟังก์ชันสำหรับสร้างกราฟ
         def plot_comparison(feature, feature_name):
@@ -62,9 +70,9 @@ if st.button('เปรียบเทียบ'):
             values = [car1[feature].values[0], car2[feature].values[0]]
 
             ax.bar(index, values, color=['blue', 'orange'])
-            ax.set_xlabel('รถยนต์')
-            ax.set_ylabel(feature_name)
-            ax.set_title(f'การเปรียบเทียบ {feature_name}')
+            ax.set_xlabel('รถยนต์', fontproperties=font_prop)
+            ax.set_ylabel(feature_name, fontproperties=font_prop)
+            ax.set_title(f'การเปรียบเทียบ {feature_name}', fontproperties=font_prop)
 
             st.pyplot(fig)
 
