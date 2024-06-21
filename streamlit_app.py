@@ -14,7 +14,7 @@ cluster_names = {
 }
 
 # สร้างหน้าแอปพลิเคชัน
-st.title('เปรียบเทียบกลุ่มรถยนต์')
+st.title('ระบบเปรียบเทียบรถยนต์ตามปริมาณ CO2')
 
 # ฟังก์ชันสำหรับเลือกข้อมูลรถยนต์
 def select_car(prefix=""):
@@ -55,25 +55,23 @@ if st.button('เปรียบเทียบ'):
         st.write(f'กลุ่ม: {cluster_name2}')
         st.write(car2.iloc[0])
 
-        # เพิ่มกราฟการเปรียบเทียบคุณลักษณะของรถยนต์
-        features = ['car_price', 'energy_combined', 'car_capacity', 'car_weight', 'emissions_co2']
-        car1_values = car1[features].values[0]
-        car2_values = car2[features].values[0]
+        # ฟังก์ชันสำหรับสร้างกราฟ
+        def plot_comparison(feature, feature_name):
+            fig, ax = plt.subplots()
+            index = ['รถยนต์คันที่ 1', 'รถยนต์คันที่ 2']
+            values = [car1[feature].values[0], car2[feature].values[0]]
 
-        fig, ax = plt.subplots()
-        index = range(len(features))
-        bar_width = 0.35
+            ax.bar(index, values, color=['blue', 'orange'])
+            ax.set_xlabel('รถยนต์')
+            ax.set_ylabel(feature_name)
+            ax.set_title(f'การเปรียบเทียบ {feature_name}')
 
-        ax.bar(index, car1_values, bar_width, label=f'{car1["car_brand"].values[0]} {car1["car_series"].values[0]}')
-        ax.bar([i + bar_width for i in index], car2_values, bar_width, label=f'{car2["car_brand"].values[0]} {car2["car_series"].values[0]}')
+            st.pyplot(fig)
 
-        ax.set_xlabel('คุณลักษณะ')
-        ax.set_ylabel('ค่า')
-        ax.set_title('การเปรียบเทียบคุณลักษณะของรถยนต์')
-        ax.set_xticks([i + bar_width / 2 for i in index])
-        ax.set_xticklabels(features)
-        ax.legend()
+        # แสดงกราฟการเปรียบเทียบ
+        plot_comparison('emissions_co2', 'การปล่อยก๊าซ CO2')
+        plot_comparison('car_price', 'ราคา')
+        plot_comparison('car_capacity', 'ปริมาตรเครื่องยนต์')
 
-        st.pyplot(fig)
     else:
         st.warning('กรุณาเลือกรถยนต์ให้ครบทั้งสองคัน')
