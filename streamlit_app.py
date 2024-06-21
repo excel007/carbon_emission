@@ -1,11 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.font_manager import FontProperties
-
-# กำหนดฟอนต์ภาษาไทย
-font_path = 'THSarabunNew.ttf'
-font_prop = FontProperties(fname=font_path)
 
 # โหลดข้อมูลจากไฟล์ CSV
 data = pd.read_csv('kmean_ICE.csv')
@@ -70,9 +65,9 @@ if st.button('เปรียบเทียบ'):
             values = [car1[feature].values[0], car2[feature].values[0]]
 
             ax.bar(index, values, color=['blue', 'orange'])
-            ax.set_xlabel('รถยนต์', fontproperties=font_prop)
-            ax.set_ylabel(feature_name, fontproperties=font_prop)
-            ax.set_title(f'การเปรียบเทียบ {feature_name}', fontproperties=font_prop)
+            ax.set_xlabel('รถยนต์')
+            ax.set_ylabel(feature_name)
+            ax.set_title(f'การเปรียบเทียบ {feature_name}')
 
             st.pyplot(fig)
 
