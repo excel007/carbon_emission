@@ -8,7 +8,7 @@ font_path = 'THSarabunNew.ttf'
 font_prop = FontProperties(fname=font_path)
 
 # โหลดข้อมูลจากไฟล์ CSV
-data = pd.read_csv('/mnt/data/kmean_ICE.csv')
+data = pd.read_csv('kmean_ICE.csv')
 
 # กำหนดชื่อกลุ่มสำหรับแต่ละค่า pca_kmean_cluster
 cluster_names = {
