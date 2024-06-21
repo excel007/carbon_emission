@@ -65,9 +65,9 @@ if st.button('เปรียบเทียบ'):
             values = [car1[feature].values[0], car2[feature].values[0]]
 
             ax.bar(index, values, color=['blue', 'orange'])
-            ax.set_xlabel('รถยนต์')
+            ax.set_xlabel('car')
             ax.set_ylabel(feature_name)
-            ax.set_title(f'การเปรียบเทียบ {feature_name}')
+            ax.set_title(f'Comparision of  {feature_name}')
 
             st.pyplot(fig)
 
