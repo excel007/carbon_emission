@@ -61,7 +61,7 @@ if st.button('เปรียบเทียบ'):
         # ฟังก์ชันสำหรับสร้างกราฟ
         def plot_comparison(feature, feature_name):
             fig, ax = plt.subplots()
-            index = ['รถยนต์คันที่ 1', 'รถยนต์คันที่ 2']
+            index = ['car no 1', 'car no 2']
             values = [car1[feature].values[0], car2[feature].values[0]]
 
             ax.bar(index, values, color=['blue', 'orange'])
@@ -72,9 +72,9 @@ if st.button('เปรียบเทียบ'):
             st.pyplot(fig)
 
         # แสดงกราฟการเปรียบเทียบ
-        plot_comparison('emissions_co2', 'การปล่อยก๊าซ CO2')
-        plot_comparison('car_price', 'ราคา')
-        plot_comparison('car_capacity', 'ปริมาตรเครื่องยนต์')
+        plot_comparison('emissions_co2', ' CO2 Emission')
+        plot_comparison('car_price', 'Price')
+        plot_comparison('car_capacity', 'Engine Capacity')
 
     else:
         st.warning('กรุณาเลือกรถยนต์ให้ครบทั้งสองคัน')
