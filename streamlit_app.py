@@ -76,26 +76,5 @@ if st.button('เปรียบเทียบ'):
         plot_comparison('car_price', 'Price')
         plot_comparison('car_capacity', 'Engine Capacity')
         
-        # กราฟแสดงกลุ่มของรถยนต์ที่เลือก
-        def plot_cluster_distribution():
-            fig, ax = plt.subplots()
-            clusters = data['pca_kmean_cluster'].value_counts().sort_index()
-            ax.bar(clusters.index, clusters.values, tick_label=[cluster_names[i] for i in clusters.index])
-
-            # เพิ่มข้อมูลรถยนต์ที่เลือก
-            car1_cluster = car1['pca_kmean_cluster'].values[0]
-            car2_cluster = car2['pca_kmean_cluster'].values[0]
-            ax.bar(car1_cluster, clusters[car1_cluster], color='blue', label='car no 1')
-            ax.bar(car2_cluster, clusters[car2_cluster], color='orange', label='car no 2')
-
-            ax.set_xlabel('cluster')
-            ax.set_ylabel('a car count ')
-            ax.set_title('cluster distributed')
-            ax.legend()
-
-            st.pyplot(fig)
-
-        # แสดงกราฟการกระจายกลุ่ม
-        plot_cluster_distribution()
     else:
         st.warning('กรุณาเลือกรถยนต์ให้ครบทั้งสองคัน')
